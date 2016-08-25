@@ -4,14 +4,27 @@ var ReactDOM = require('react-dom');
 
 var Card = function(props) {
   return (
+    <div>
       <li className="card">
-      {props.text}
-      <form onSubmit={props.onDelete} onUpdate={props.onUpdate}>
+          <span contentEditable="true">{props.text}</span>
+      </li>
+      <form onSubmit={props.onDelete}>
           <button type="submit">X</button>
       </form>
-      </li>
+    </div>  
     )
 };
+
+var Form = function(props) {
+ return(
+   <form onSubmit={props.onAddSubmit}>
+     <input maxLength="20" type="text" placeholder="enter task" onChange={props.onAddInputChanged} value={props.value}/>
+     <button type="submit">Submit</button>
+   </form>
+
+   )
+};
+
 
 var List = React.createClass({
     getInitialState: function() {
@@ -25,12 +38,16 @@ var List = React.createClass({
      event.preventDefault();
      console.log('button pressed');
      //var updatedList = this.state.cards.slice();
-     // updatedList.push(this.state.item); 
-    this.setState({
-       text:"",
-       listCards: this.state.listCards.concat([this.state.text])
-      
-    })
+     // updatedList.push(this.state.item);
+     if (this.state.text == ""){
+        alert("Please enter text");
+     }else {
+      this.setState({
+         text:"",
+         listCards: this.state.listCards.concat([this.state.text])
+        
+      })
+    }
 
   },
 
@@ -53,14 +70,14 @@ var List = React.createClass({
       listCards: updatedList
     })
   },
-  onUpdate: function(event) {
-    event.preventDefault();
-  }
+  // onUpdate: function(event) {
+  //   event.preventDefault();
+  // },
 
   render: function(props) {
       var myCards = [];
        for (var i = 0; i < this.state.listCards.length; i++) {
-           myCards.push(<Card onDelete={this.onDelete} onUpdate={this.onUpdate} text={this.state.listCards[i]} />);
+           myCards.push(<Card onDelete={this.onDelete} text={this.state.listCards[i]} />);
        }
        return (
           <div className="board-list">
@@ -136,15 +153,6 @@ onAddInputChanged: function(event) {
 }
 });
 
-var Form = function(props) {
- return(
-   <form onSubmit={props.onAddSubmit}>
-     <input type="text" placeholder="enter task" onChange={props.onAddInputChanged} value={props.value}/>
-     <button type="submit">Submit</button>
-   </form>
-
-   )
-};
 
 
 
