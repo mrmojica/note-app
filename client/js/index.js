@@ -4,7 +4,12 @@ var ReactDOM = require('react-dom');
 
 var Card = function(props) {
   return (
-      <li className="card">{props.text}</li>
+      <li className="card">
+      {props.text}
+      <form onSubmit={props.onDelete} onUpdate={props.onUpdate}>
+          <button type="submit">X</button>
+      </form>
+      </li>
     )
 };
 
@@ -19,8 +24,8 @@ var List = React.createClass({
    onAddSubmit: function(event) {
      event.preventDefault();
      console.log('button pressed');
-     // var updatedList = this.state.cards.slice();
-     // updatedList.push(this.state.item);
+     //var updatedList = this.state.cards.slice();
+     // updatedList.push(this.state.item); 
     this.setState({
        text:"",
        listCards: this.state.listCards.concat([this.state.text])
@@ -38,10 +43,24 @@ var List = React.createClass({
      
      });
   },
+
+  onDelete: function(event) {
+    event.preventDefault();
+    console.log("delete");
+    var updatedList = this.state.listCards.slice();
+    updatedList.splice(updatedList.indexOf(this.state.text));
+    this.setState({
+      listCards: updatedList
+    })
+  },
+  onUpdate: function(event) {
+    event.preventDefault();
+  }
+
   render: function(props) {
       var myCards = [];
        for (var i = 0; i < this.state.listCards.length; i++) {
-           myCards.push(<Card text={this.state.listCards[i]} />);
+           myCards.push(<Card onDelete={this.onDelete} onUpdate={this.onUpdate} text={this.state.listCards[i]} />);
        }
        return (
           <div className="board-list">
