@@ -4,22 +4,21 @@ var ReactDOM = require('react-dom');
 
 var Card = function(props) {
   return (
-    <div>
+    <div className="card-container">
       <li className="card">
           <span contentEditable="true">{props.text}</span>
       </li>
-      <form onSubmit={props.onDelete}>
-          <button type="submit">X</button>
+      <form  onSubmit={props.onDelete}>
+          <button className="" type="submit">X</button>
       </form>
     </div>  
     )
 };
-
 var Form = function(props) {
  return(
-   <form onSubmit={props.onAddSubmit}>
-     <input maxLength="20" type="text" placeholder="enter task" onChange={props.onAddInputChanged} value={props.value}/>
-     <button type="submit">Submit</button>
+   <form className="form" onSubmit={props.onAddSubmit}>
+     <input className="input" maxLength="20" type="text" placeholder="enter task" onChange={props.onAddInputChanged} value={props.value}/>
+     <button className="" type="submit">Submit</button>
    </form>
 
    )
@@ -31,14 +30,13 @@ var List = React.createClass({
       return {
         text: "",
         listCards: []
+
       }
     },
 
    onAddSubmit: function(event) {
      event.preventDefault();
      console.log('button pressed');
-     //var updatedList = this.state.cards.slice();
-     // updatedList.push(this.state.item);
      if (this.state.text == ""){
         alert("Please enter text");
      }else {
@@ -53,7 +51,6 @@ var List = React.createClass({
 
   onAddInputChanged: function(event) {
    event.preventDefault();
-   // console.log(event.target.value);
 
    this.setState({
        text: event.target.value,
@@ -66,18 +63,15 @@ var List = React.createClass({
     console.log("delete");
     var updatedList = this.state.listCards.slice();
     updatedList.splice(updatedList.indexOf(this.state.text));
+    console.log(updatedList.indexOf(this.state.text));
     this.setState({
       listCards: updatedList
     })
   },
-  // onUpdate: function(event) {
-  //   event.preventDefault();
-  // },
-
   render: function(props) {
       var myCards = [];
        for (var i = 0; i < this.state.listCards.length; i++) {
-           myCards.push(<Card onDelete={this.onDelete} text={this.state.listCards[i]} />);
+           myCards.push(<Card onDelete={this.onDelete} text={this.state.listCards[i]} key={i} />);
        }
        return (
           <div className="board-list">
@@ -92,18 +86,7 @@ var List = React.createClass({
   }
 });
 
-// var List = function(props) {
-//  return (
-//       <div className="board-list">{props.text}
-//        <form onSubmit={props.onAddSubmit}>
-//          <input type="text" placeholder="enter task" onChange={props.onAddInputChanged} value={props.value}/>
-//          <button type="submit">Submit</button>
-//        </form>  
-//      </div>    
-//        );
-// }
-
-var Board = React.createClass({ // ListContainer
+var Board = React.createClass({
 
 getInitialState: function() {
        return {
@@ -112,11 +95,9 @@ getInitialState: function() {
          }
        },
 
- onAddSubmit: function(event) {
-   event.preventDefault();
+ onAddSubmit: function(event){
+     event.preventDefault();
    console.log('button pressed');
-   // var updatedList = this.state.cards.slice();
-   // updatedList.push(this.state.item);
   this.setState({
      title:'',
      listItems: this.state.listItems.concat([this.state.title])
@@ -124,10 +105,8 @@ getInitialState: function() {
   })
 
 },
-
 onAddInputChanged: function(event) {
  event.preventDefault();
- // console.log(event.target.value);
 
  this.setState({
      title: event.target.value,
@@ -141,13 +120,15 @@ onAddInputChanged: function(event) {
    }
    console.log(myList);
    return (
-
- <div className="container">
- <div>Some Content</div>
-  <Form onAddSubmit={this.onAddSubmit} onAddInputChanged={this.onAddInputChanged} value={this.state.title}/>
- <div className="list">
- <h1>{myList}</h1>
- </div>
+<div className="container-wrapper">
+     <div className="container">
+         <p className="header">Trello</p>
+          <Form onAddSubmit={this.onAddSubmit} onAddInputChanged={this.onAddInputChanged} value={this.state.title}/>
+      </div>   
+         <div className="list">
+          {myList}
+         </div>
+    
  </div>
  )
 }
