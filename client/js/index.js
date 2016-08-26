@@ -7,9 +7,10 @@ var Card = function(props) {
     <div className="card-container">
       <li className="card">
           <span contentEditable="true">{props.text}</span>
+
       </li>
-      <form  onSubmit={props.onDelete}>
-          <button className="" type="submit">X</button>
+       <form className="card-form" onSubmit={props.onDelete}>
+      <button className="delete" type="submit">x</button>
       </form>
     </div>  
     )
@@ -18,7 +19,7 @@ var Form = function(props) {
  return(
    <form className="form" onSubmit={props.onAddSubmit}>
      <input className="input" maxLength="20" type="text" placeholder="enter task" onChange={props.onAddInputChanged} value={props.value}/>
-     <button className="" type="submit">Submit</button>
+     <button className="button" type="submit">Submit</button>
    </form>
 
    )
@@ -61,12 +62,19 @@ var List = React.createClass({
   onDelete: function(event) {
     event.preventDefault();
     console.log("delete");
+    var textIndex = parseInt(this.state.text, 10);
+    console.log(textIndex, this.state.listCards[textIndex]);
     var updatedList = this.state.listCards.slice();
-    updatedList.splice(updatedList.indexOf(this.state.text));
-    console.log(updatedList.indexOf(this.state.text));
+   updatedList.splice(textIndex, 1);
     this.setState({
-      listCards: updatedList
+        listCards: updatedList
     })
+    // var updatedList = this.state.listCards.slice();
+    // updatedList.splice(updatedList.indexOf(this.state.text));
+    // console.log(updatedList.indexOf(this.state.listCards));
+    // this.setState({
+    //   listCards: updatedList
+    // })
   },
   render: function(props) {
       var myCards = [];
@@ -75,7 +83,7 @@ var List = React.createClass({
        }
        return (
           <div className="board-list">
-          {this.props.title}
+          <h2>{this.props.title}</h2>
           <ul>{myCards}</ul>
         <Form onAddSubmit={this.onAddSubmit} onAddInputChanged={this.onAddInputChanged} value={this.state.text}/>
  
@@ -122,7 +130,7 @@ onAddInputChanged: function(event) {
    return (
 <div className="container-wrapper">
      <div className="container">
-         <p className="header">Trello</p>
+         <h1 className="header">Trello</h1>
           <Form onAddSubmit={this.onAddSubmit} onAddInputChanged={this.onAddInputChanged} value={this.state.title}/>
       </div>   
          <div className="list">

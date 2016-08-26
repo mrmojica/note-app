@@ -4,12 +4,25 @@ body {
 }
 
 .container {
-   margin: auto; 
-   width: 100px;
-   text-align: center; 
+   margin: 28px auto; 
+   width: 300px;
+   text-align: center;
+ 
 }
 h1 {
-   font-style: italic;
+  font-family: fantasy;
+  font-size: 5em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+
+h2 {
+  font-family: Arial;
+  font-size: 1.5em;
+  font-style: normal;
+  font-variant: normal;
 }
 .card-list {
     width: 50px;
@@ -22,38 +35,72 @@ h1 {
 }
 
 .board-list {
-   border: 1px solid black;
+   border: 1px solid #E2E4E6;
    padding: 20px;
    margin: 20px;
    width: 300px;
    display: inline-block;
    border-radius: 15px;
-   background-color: #E2E4E6;
-   
+   background-color: #E2E4E6;   
 }
 
 .card-form {
    width: 10px;
 }
 .input {
-   width: 100px;
+   width: 170px;
+  border-radius: 10px;
+  text-align: center;
+
 }
 .card {
    font-size: 1em;
 }
-button {
+.button {
    background-color: white;
     color: black;
-    border: 2px solid #008CBA;
-    border-radius: 2px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
 
 }
-button:hover {
-    background-color: #008CBA;
+.button:hover {
+    background-color: #4CAF50;
     color: white;
 }
 .board {
    display: inline-block;
    margin: 10px auto;
+
+}
+ul{
+  list-style-type: none;
+   padding-left: 0px; 
+}
+
+.card-container {
+  padding-left: 0px;
+  width: 250px;
+  margin: 8px; 
+  margin-left: 0px;
+}
+.delete {
+    background-color: white;
+    color: #555555;
+    border: 2px solid red;
+    border-radius: 150px;
+    padding: 2px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.delete:hover {
+    background-color: red;
+    color: white; 
+}
+
+.card-form {
+   margin-top: -50px;
+   width: 3px;
+   margin-left: 250px;
 
 }
